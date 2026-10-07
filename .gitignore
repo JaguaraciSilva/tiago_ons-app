@@ -1,0 +1,7 @@
+__pycache__/
+.venv/
+.env
+*.duckdb
+.DS_Store
+.vscode/
+tiago_repo/

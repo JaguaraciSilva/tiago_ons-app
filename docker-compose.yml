@@ -1,0 +1,39 @@
+services:
+  # 1. Servidor SLM leve (Ollama)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: tiago_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - /home/usuario/Projetos/docker-data/ollama:/root/.ollama
+    restart: unless-stopped
+
+  # 2. Backend FastAPI + LangChain + MCP TIAGO
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tiago_backend
+    ports:
+      - "8001:8001"
+    environment:
+      - OPENAI_API_BASE=http://ollama:11434/v1
+      - OPENAI_API_KEY=ollama
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+  # 3. Frontend Streamlit
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tiago_frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_URL=http://backend:8001/chat
+    depends_on:
+      - backend
+    restart: unless-stopped
