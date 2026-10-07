@@ -127,18 +127,13 @@ Para rodar os testes unitários e verificar o quality gate do projeto:
 
     1. Instale as dependências de teste e qualidade:
 
-    ```bash
-    pip install pytest pytest-cov ruff
-    ```
+        pip install pytest pytest-cov ruff
+    
 
     2. Valide o estilo e as regras estáticas de código:
 
-    ```bash
-    ruff check .
-    ```
+        ruff check .
 
     3. Execute os testes unitários:
 
-    ```bash
-    pytest
-    ```
+        pytest
